@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Testing Group - Join</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .success {
+            color: #10b981;
+        }
+        
+        .success h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .discord-link {
+            background: #5865F2;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .discord-link:hover {
+            background: #4752C4;
+        }
+        
+        .fail {
+            color: #ef4444;
+        }
+        
+        .fail h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .fail p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        #form {
+            display: block;
+        }
+        
+        #form.hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="form">
+            <h1>Android Testing Group</h1>
+            <p class="subtitle">Answer these questions to join our community</p>
+            
+            <form id="questionnaire">
+                <div class="question">
+                    <label for="q1">1. Do you currently have an Android app ready for closed testing or will within the next 2 weeks?</label>
+                    <select id="q1" required>
+                        <option value="">Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="month">Within 1 month</option>
+                    </select>
+                </div>
+                
+                <div class="question">
+                    <label for="q2">2. Can you install apps within 48 hours of being notified?</label>
+                    <select id="q2" required>
+                        <option value="">Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                
+                <div class="question">
+                    <label for="q3">3. Will you keep all group apps installed for the required testing period?</label>
+                    <select id="q3" required>
+                        <option value="">Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                
+                <div class="question">
+                    <label for="q4">4. Do you understand this is an ongoing community? Members who help with others' apps get priority for their own future apps and updates. Members who leave after getting their app approved lose access to the group.</label>
+                    <select id="q4" required>
+                        <option value="">Select an option</option>
+                        <option value="yes">Yes, I'll stay active</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                
+                <div class="question">
+                    <label for="q5">5. Brief description of your app (1 sentence):</label>
+                    <textarea id="q5" required placeholder="Enter your app description..."></textarea>
+                </div>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        
+        <div id="result" class="result">
+            <!-- Success or failure message will be inserted here -->
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('questionnaire').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const q1 = document.getElementById('q1').value;
+            const q2 = document.getElementById('q2').value;
+            const q3 = document.getElementById('q3').value;
+            const q4 = document.getElementById('q4').value;
+            const q5 = document.getElementById('q5').value.trim();
+            
+            // Check if all required answers are "yes"
+            const approved = (q1 === 'yes' || q1 === 'month') && 
+                           q2 === 'yes' && 
+                           q3 === 'yes' && 
+                           q4 === 'yes' && 
+                           q5.length > 0;
+            
+            const formDiv = document.getElementById('form');
+            const resultDiv = document.getElementById('result');
+            
+            formDiv.classList.add('hide');
+            resultDiv.classList.add('show');
+            
+            if (approved) {
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h2>✅ Welcome to the group!</h2>
+                        <p>Click the button below to join our Discord community.</p>
+                        <a href="YOUR_DISCORD_INVITE_LINK_HERE" class="discord-link" target="_blank">Join Discord Server</a>
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="fail">
+                        <h2>❌ Not approved</h2>
+                        <p>Based on your answers, this group might not be the right fit. We need members who can commit to helping each other with testing requirements.</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
